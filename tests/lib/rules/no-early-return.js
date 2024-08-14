@@ -23,7 +23,7 @@ ruleTester.run("no-early-return", rule, {
         "QUnit.test('a test', function (assert) { (function () { return; })(); assert.ok(true); });",
         {
             code: "QUnit.test('a test', function (assert) { () => { return; }; assert.ok(true); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
         },
 
         // Inside nested function (assertions inside nested function before return)
@@ -31,7 +31,7 @@ ruleTester.run("no-early-return", rule, {
         "QUnit.test('a test', function (assert) { (function () { assert.ok(true); return; })(); });",
         {
             code: "QUnit.test('a test', function (assert) { () => { assert.ok(true); return; }; });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
         },
 
         // Conditionally run tests are okay
@@ -56,7 +56,9 @@ ruleTester.run("no-early-return", rule, {
         {
             // TypeScript: test callback is adding a type to `this`
             code: "QUnit.test('a test', function (this: LocalTestContext, assert) { if (true) return; assert.ok(true); });",
-            parser: require.resolve("@typescript-eslint/parser"),
+            languageOptions: {
+                parser: require("typescript-eslint").parser,
+            },
             errors: [
                 {
                     messageId: "noEarlyReturn",
@@ -67,7 +69,7 @@ ruleTester.run("no-early-return", rule, {
 
         {
             code: "QUnit.test('a test', (assert) => { if (true) return; assert.ok(true); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "noEarlyReturn",

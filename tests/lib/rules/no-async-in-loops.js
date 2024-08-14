@@ -136,7 +136,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) stop(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -150,7 +150,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) { stop(); } });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -270,7 +270,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) QUnit.stop(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -284,7 +284,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) { QUnit.stop(); } });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -404,7 +404,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) start(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -418,7 +418,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) { start(); } });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -538,7 +538,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) QUnit.start(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -552,7 +552,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function () { for (i of x) { QUnit.start(); } });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -582,7 +582,9 @@ ruleTester.run("no-async-in-loops", rule, {
         {
             // TypeScript: test callback is adding a type to `this`
             code: "test('name', function (this: LocalTestContext, assert) { while (false) assert.async(); });",
-            parser: require.resolve("@typescript-eslint/parser"),
+            languageOptions: {
+                parser: require("typescript-eslint").parser,
+            },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -596,7 +598,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', (assert) => { while (false) assert.async(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -688,7 +690,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function (assert) { for (i of x) assert.async(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",
@@ -756,7 +758,7 @@ ruleTester.run("no-async-in-loops", rule, {
         },
         {
             code: "test('name', function (foo) { for (i of {}) foo.async(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAsyncInLoop",

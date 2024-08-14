@@ -495,7 +495,7 @@ ruleTester.run("resolve-async", rule, {
         },
         {
             code: "QUnit.test('name', (foo) => { var done = foo.async(); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [createAsyncCallbackNotCalledMessage("CallExpression")],
         },
         {

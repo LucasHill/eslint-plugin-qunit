@@ -110,7 +110,9 @@ ruleTester.run("literal-compare-order", rule, {
             output: testUtils.wrapInTest(
                 "QUnit.test('test', (this: LocalTestContext) => { equal(variable, 'Literal'); });",
             ),
-            parser: require.resolve("@typescript-eslint/parser"),
+            languageOptions: {
+                parser: require("typescript-eslint").parser,
+            },
             errors: [
                 {
                     messageId: "actualFirst",
@@ -158,7 +160,7 @@ ruleTester.run("literal-compare-order", rule, {
             output: testUtils.wrapInArrowTest(
                 "assert.equal(variable, 'Literal');",
             ),
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "actualFirst",

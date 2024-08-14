@@ -36,7 +36,9 @@ ruleTester.run("no-assert-equal", rule, {
         // global `equal` but not within test context
         {
             code: "equal(a, b);",
-            globals: { equal: true },
+            languageOptions: {
+                globals: { equal: true },
+            }
         },
 
         // `equal` but not the global
@@ -69,7 +71,7 @@ ruleTester.run("no-assert-equal", rule, {
         },
         {
             code: "QUnit.test('Name', (assert) => { assert.equal(a, b); });",
-            parserOptions: { ecmaVersion: 6 },
+            languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "unexpectedAssertEqual",
@@ -116,7 +118,9 @@ ruleTester.run("no-assert-equal", rule, {
         },
         {
             code: "QUnit.test('Name', function (assert) { equal(a, b); });",
-            globals: { equal: true },
+            languageOptions: {
+                globals: { equal: true },
+            },
             errors: [
                 {
                     messageId: "unexpectedGlobalEqual",
@@ -139,7 +143,9 @@ ruleTester.run("no-assert-equal", rule, {
         },
         {
             code: "QUnit.test('Name', function () { equal(a, b); });",
-            globals: { equal: true },
+            languageOptions: {
+                globals: { equal: true },
+            },
             errors: [
                 {
                     messageId: "unexpectedGlobalEqual",
@@ -163,7 +169,9 @@ ruleTester.run("no-assert-equal", rule, {
         {
             // TypeScript: test callback is adding a type to `this`
             code: "QUnit.test('Name', function (this: LocalTestContext, assert) { assert.equal(a, b); });",
-            parser: require.resolve("@typescript-eslint/parser"),
+            languageOptions: {
+                parser: require("typescript-eslint").parser,
+            },
             errors: [
                 {
                     messageId: "unexpectedAssertEqual",

@@ -21,7 +21,7 @@ const messageId = "noAsyncModuleCallbacks";
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2017 } });
+const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2017 } });
 ruleTester.run("no-async-module-callbacks", rule, {
     valid: [
         "QUnit.module('single argument');",

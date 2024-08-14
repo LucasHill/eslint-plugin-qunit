@@ -86,7 +86,7 @@ ruleTester.run("no-identical-title", rule, {
               test(\`it$\{n\}\`, function() {});
               test(\`it$\{n\}\`, function() {});
             `,
-            parserOptions: {
+            languageOptions: {
                 ecmaVersion: 6,
             },
         },

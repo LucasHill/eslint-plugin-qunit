@@ -17,7 +17,7 @@ const rule = require("../../../lib/rules/no-global-expect"),
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-    parserOptions: {
+    languageOptions: {
         ecmaVersion: 2015,
         sourceType: "module",
     },
@@ -28,7 +28,9 @@ ruleTester.run("no-global-expect", rule, {
         testUtils.wrapInTest("assert.expect(1);"),
         {
             code: testUtils.wrapInTest("assert.expect(1);"),
-            globals: { expect: true },
+                        languageOptions: {
+                globals: { expect: true },
+            },
         },
 
         // Global overridden by local import/declaration.
@@ -36,36 +38,48 @@ ruleTester.run("no-global-expect", rule, {
             code: `import expect from 'foo'; ${testUtils.wrapInTest(
                 "expect(1);",
             )}`,
-            globals: { expect: true },
+                        languageOptions: {
+                globals: { expect: true },
+            },
         },
         {
             code: `import { expect } from 'foo'; ${testUtils.wrapInTest(
                 "expect(1);",
             )}`,
-            globals: { expect: true },
+                        languageOptions: {
+                globals: { expect: true },
+            },
         },
         {
             code: `var expect = require('foo'); ${testUtils.wrapInTest(
                 "expect(1);",
             )}`,
-            globals: { expect: true },
+                        languageOptions: {
+                globals: { expect: true },
+            },
         },
         {
             code: `var expect = () => {}; ${testUtils.wrapInTest(
                 "expect(1);",
             )}`,
-            globals: { expect: true },
+                        languageOptions: {
+                globals: { expect: true },
+            },
         },
         {
             code: `function expect() {}; ${testUtils.wrapInTest("expect(1);")}`,
-            globals: { expect: true },
+                        languageOptions: {
+                globals: { expect: true },
+            },
         },
     ],
 
     invalid: [
         {
             code: testUtils.wrapInTest("expect(1)"),
-            globals: { expect: true },
+                        languageOptions: {
+                globals: { expect: true },
+            },
             errors: [
                 {
                     messageId: "unexpectedGlobalExpect",
